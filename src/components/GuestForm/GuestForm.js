@@ -1,35 +1,12 @@
-import { useState } from 'react';
-import axios from 'axios';
+
 
 function GuestForm( props ) {
     console.log('My GF props are:', props);
-    let [newGuestName, setNewGuestName] = useState('');
-    let [newGuestMeal, setNewGuestMeal] = useState('false');
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        if (newGuestName) {
-          addGuest();
-        }
-        else {
-          alert('The new guest needs a name!');
-        }
-      }
-      console.log(newGuestMeal)
-
-    const addGuest = () => {
-        axios.post('/guests', { name: newGuestName, kidsMeal: newGuestMeal })
-        .then(response => {
-            props.addGuests();
-            // clear inputs
-            setNewGuestName('');
-            setNewGuestMeal(false);
-          })
-          .catch(err => {
-            alert('Error Adding Guest');
-            console.log(err);
-          })
-      };
+  const newGuestName= props.newGuestName
+  const setNewGuestName= props.setNewGuestName
+  const newGuestMeal= props.newGuestMeal
+  const setNewGuestMeal= props.setNewGuestMeal
+  const handleSubmit= props.handleSubmit
 
     return (
         <>

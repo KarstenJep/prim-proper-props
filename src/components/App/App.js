@@ -9,6 +9,8 @@ import GuestForm from '../GuestForm/GuestForm';
 
 function App() {
   let [guestList, setGuestList] = useState([]);
+  let [newGuestName, setNewGuestName] = useState('');
+  let [newGuestMeal, setNewGuestMeal] = useState('false');
   
   //On load, get guests
   useEffect(() => {
@@ -25,6 +27,31 @@ function App() {
         console.log(err);
       })
   }
+
+  const addGuest = () => {
+    axios.post('/guests', { name: newGuestName, kidsMeal: newGuestMeal })
+    .then(response => {
+        addGuests();
+        // clear inputs
+        setNewGuestName('');
+        setNewGuestMeal(false);
+      })
+      .catch(err => {
+        alert('Error Adding Guest');
+        console.log(err);
+      })
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (newGuestName) {
+      addGuest();
+    }
+    else {
+      alert('The new guest needs a name!');
+    }
+  }
+  console.log(newGuestMeal)
 
   return (
     <div className="App">
